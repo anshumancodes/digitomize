@@ -1,9 +1,8 @@
 import * as React from "react";
 import Box from "@mui/material/Box";
 import Slider from "@mui/material/Slider";
-
 function valuetext(value) {
-  return `${value}`;
+  return `${value} hr`;
 }
 
 export default function CustomSlider({ setRange, maxValue }) {
@@ -16,6 +15,28 @@ export default function CustomSlider({ setRange, maxValue }) {
     setValue(newValue);
     setRange(newValue);
   };
+  function convertMinutesToHours(minutes) {
+    if (minutes <= 120) {
+        return minutes
+    } else {
+      const hours = Math.floor(minutes / 60);
+      const remainingMinutes = minutes % 60;
+      return hours + remainingMinutes ;
+    }
+}
+function displayHourMin(Time) {
+ 
+  const hours = Math.floor(Time / 60);
+  const remainingMinutes = Time % 60;
+  return hours + "hr " + remainingMinutes + "min";
+  
+  
+}
+
+
+console.log(value)
+
+
 
   return (
     maxValue > 0 && (
@@ -25,15 +46,23 @@ export default function CustomSlider({ setRange, maxValue }) {
           className="px-6 py-0 lg:py-3 rounded-lg flex flex-col justify-center items-center bg-filter  "
           sx={{ width: 300 }}
         >
+          <div> {valuetext(displayHourMin(value[0]))} to {valuetext(displayHourMin(value[1]))}</div>
+          
           <Slider
-            max={maxValue}
-            step={15}
-            getAriaLabel={() => "Duration range"}
+          step={15}
+          marks={true}
+           size="small"
+            max={convertMinutesToHours(maxValue)}
+            
+            getAriaLabel={() => "duration in hour mins"}
             value={value}
             onChange={handleChange}
-            valueLabelDisplay="auto"
+            valueLabelDisplay="off"
             getAriaValueText={valuetext}
+
           />
+         
+          
         </Box>
       </div>
     )
