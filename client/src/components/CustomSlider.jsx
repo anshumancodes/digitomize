@@ -34,7 +34,7 @@ function displayHourMin(Time) {
 }
 
 
-console.log(value)
+// console.log(value)
 
 
 
